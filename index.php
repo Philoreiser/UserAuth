@@ -7,15 +7,11 @@
 // Initialization
 require_once('includes/init.php');
 
+// show the page header, then the rest of HTML
+include('includes/header.php');
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Example site</title>
-    <meta charset="utf-8">
 
-</head>
-<body>
-    <h1>Home</h1>
-</body>
-</html>
+<h1>Home</h1>
+<p><a href="signup.php">Sign up</a></p>
+
+<?php include('includes/footer.php'); ?>

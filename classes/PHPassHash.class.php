@@ -5,6 +5,7 @@
  */
 
 class Hash {
+    private static $_hasher;
 
     private function __construct() {} // disallow creating a new object of the class with 'new Hash()'
     
@@ -16,7 +17,7 @@ class Hash {
      * @return string       the hash
      */
     public static function make($text) {
-        return password_hash($text, PASSWORD_DEFAULT);
+        return static::_getHasher()->HashPassword($text);
     }
 
     /**
@@ -26,8 +27,21 @@ class Hash {
      * @return boolean
      */
     public static function check($text, $hash) {
-        return password_verify($text, $hash);
-    }
+        return static::_getHasher()->CheckPassword($text, $hash);
+    } 
 
+    /**
+     * Get the singleton password hasher object
+     * @return PasswordHash
+     */
+    private static function _getHasher() {
+        if (static::$_hasher === NULL) {
+            require dirname(dirname(__FILE__)) . 'vendor/PHPass/PasswordHash.php';
+
+            static::$_hasher = new PasswordHash(8, false);
+        }
+
+        return static::$_hasher;
+    }
 
 } 
